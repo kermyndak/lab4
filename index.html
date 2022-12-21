@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lab4</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <script src="scripts/func.js"></script>
+    <script src="scripts/onload.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <input type="image" src="images/dark.png" id="btn2">
+    <table border="2px" class="table table-dark">
+        <tr>
+            <th colspan="2">
+                Товары
+            </th>
+        </tr>
+        <tr>
+            <th>Наименование</th>
+            <th>Стоимость</th>
+        </tr>
+        <tr onclick="clickOldRow(this)" class="bd">
+            <td>Мясо</td>
+            <td class="price-cell">200</td>
+        </tr>
+        <tr onclick="clickOldRow(this)" class="bd">
+            <td>Ананас</td>
+            <td class="price-cell">120</td>
+        </tr>
+        <tr onclick="clickOldRow(this)" class="bd">
+            <td>Яблоко</td>
+            <td class="price-cell">56</td>
+        </tr>
+    </table>
+
+    <div class="border border-info" id="border">
+        <form action="form">
+            <h2>Добавление товаров</h2>
+            <div class="name">
+                <p class="name-text">Имя</p>
+                <input type="text" name="text1" id="text1">
+            </div>
+            <div class="price">
+                <p class="price-text">Цена</p>
+                <input type="text" name="text2" id="text2">
+            </div>
+            <input type="button" value="Добавить" id="btn1" class="btn btn-primary">
+        </form>
+    </div>
+
+    <table border="1px" class="table table-dark" id="basket">
+        <tr><th colspan="3">Корзина заказов</th></tr>
+        <tr><th>Наименование</th><th>Стоимость</th><th>Количество</th></tr>
+    </table>
+
+    <div class="summ border border-info">
+        <p>Стоимость заказа:</p>
+        <span id="summ">0</span>
+    </div>
+
+    <script>
+        let global_arr = [["Мясо", 200], ["Ананас", 120], ["Яблоко", 56]];
+        let ThemeFlag = true;
+
+        $("#text1").focus();
+            $("td.price-cell").mouseover(function (event){
+                event.target.style.background = "#6089B4";
+            }).mouseout(function (event){
+                if (ThemeFlag)
+                    event.target.style.background = "#343A40";
+                else
+                    event.target.style.background = "#FDFDFE";
+            })
+
+        $("input#btn1").click(function (){
+            let arr = func();
+            if (arr == null || !check(global_arr, [arr[0].value, arr[1].value].join(' ')) || !checkInput(arr[0].value, arr[1].value)) return;
+            let table = document.querySelector("table > tbody");
+            let tr = document.createElement("tr");
+            tr.innerHTML = "<td>" + arr[0].value + "</td><td class=\"price-cell\">" + arr[1].value + "</td>";
+            tr.setAttribute("class", "bd");
+            tr.setAttribute("onclick", "clickRow(this)");
+            table.appendChild(tr);
+            global_arr.push([arr[0].value, arr[1].value]);
+            arr[0].value = '', arr[1].value = '';
+            $("#text1").focus();
+            $("td.price-cell").mouseover(function (event){
+                event.target.style.background = "#6089B4";
+            }).mouseout(function (event){
+                if (ThemeFlag)
+                    event.target.style.background = "#343A40";
+                else
+                    event.target.style.background = "#FDFDFE";
+            })
+        })
+        $("#btn2").click(function (){
+            let arr_price_cell = document.querySelectorAll("td.price-cell");
+            if (ThemeFlag){
+                document.body.style.background = "#1E1E1E";
+                for (let i = 0; i < 2;i++)
+                    document.querySelectorAll("table")[i].setAttribute("class", "table table-light");
+                document.querySelector("input#btn2").setAttribute("src", "images/light.png");
+                document.querySelector(".name-text").style.color = "white";
+                document.querySelector(".price-text").style.color = "white";
+                document.querySelector(".summ > p").style.color = "white";
+                document.querySelector(".summ > span").style.color = "white";
+                document.querySelector("h2").style.color = "white";
+                for (let i = 0; i < arr_price_cell.length;i++)
+                    arr_price_cell[i].style.background = "#FDFDFE";
+                ThemeFlag = false;
+            }
+            else{
+                document.body.style.background = "white";
+                for (let i = 0; i < 2;i++)
+                    document.querySelectorAll("table")[i].setAttribute("class", "table table-dark");
+                document.querySelector("input#btn2").setAttribute("src", "images/dark.png");
+                document.querySelector(".name-text").style.color = "black";
+                document.querySelector(".price-text").style.color = "black";
+                document.querySelector(".summ > p").style.color = "black";
+                document.querySelector(".summ > span").style.color = "black";
+                document.querySelector("h2").style.color = "black";
+                for (let i = 0; i < arr_price_cell.length;i++)
+                    arr_price_cell[i].style.background = "#343A40";
+                ThemeFlag = true;
+            }
+        })
+</script>
+</body>
+</html>

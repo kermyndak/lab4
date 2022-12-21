@@ -1,0 +1,91 @@
+* {
+    box-sizing: border-box;
+}
+
+th {
+    text-align: center;
+}
+
+table {
+    margin: 0px auto;
+    max-width: 300px;
+}
+
+#border {
+    width: 300px;
+    margin: 0px auto;
+    padding: 15px;
+}
+
+.name > p {
+    display: inline;
+}
+
+#text1 {
+    float: right;
+}
+
+.price > p {
+    display: inline;
+}
+
+#text2 {
+    float: right;
+}
+
+.name {
+    margin-bottom: 10px;
+}
+
+.price {
+    margin-bottom: 10px;
+}
+
+#btn1 {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+#btn2 {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    height: 50px;
+    width: 50px;
+}
+
+#basket {
+    margin-top: 30px;
+}
+
+.plus, .minus {
+    height: 25px;
+    width: 25px;
+    position: relative
+}
+
+.plus {
+    float: right;
+}
+
+.minus {
+    float: right;
+    margin-right: 5px;
+    padding: 3px;
+}
+
+.plus:hover, .minus:hover {
+    border-radius: 100%;
+    background-color: #75FED6;
+}
+
+.summ > p {
+    display: inline;
+}
+
+.summ {
+    width: 250px;
+    margin: 0px auto;
+    padding: 15px;
+}
